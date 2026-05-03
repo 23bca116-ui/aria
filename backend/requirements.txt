@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+python-multipart
+pydantic-settings
+supabase
+python-dotenv
+chromadb
+httpx
+groq
+edge-tts
+langdetect

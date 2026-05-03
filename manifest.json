@@ -1,0 +1,19 @@
+{
+    "name": "ARIA — Your AI Companion",
+    "short_name": "ARIA",
+    "description": "Your premium AI voice companion. Always present, always evolving.",
+    "start_url": "./index.html",
+    "display": "standalone",
+    "background_color": "#080305",
+    "theme_color": "#080305",
+    "orientation": "portrait",
+    "categories": ["lifestyle", "utilities"],
+    "icons": [
+        {
+            "src": "assets/aria_app_icon.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ]
+}

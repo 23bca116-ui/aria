@@ -1,0 +1,13 @@
+[build]
+  publish = "." # The root directory holds index.html
+
+[[redirects]]
+  from = "/api/v1/*"
+  to = "https://tours-females-hollow-sufficiently.trycloudflare.com/api/v1/:splat"
+  status = 200
+  force = true
+  
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

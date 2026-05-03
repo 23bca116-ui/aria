@@ -1,0 +1,361 @@
+/* =============================================
+   ARIA Design System — Token Architecture v2.0
+   4 Mesmerising Themes:
+     1. Cloud Blush   — Soft Pink/Mauve (Light)
+     2. Glacier        — Cool Blue/Ice (Light)
+     3. Golden Hour    — Warm Caramel/Gold (Light)
+     4. Velvet Rose    — Dark Cherry/Fuchsia (Dark)
+   ============================================= */
+
+/* ─────────────────────────────────────────────
+   Theme 1: Cloud Blush (Default — Light)
+   Mountbatten Pink · Silver Pink · Almond
+   Taupe Gray · Old Lavender
+   ───────────────────────────────────────────── */
+:root,
+:root[data-theme="cloud-blush"] {
+    --bg: #F5EDE8;
+    --bg-elevated: #EBD7CE;
+    --surface: rgba(205, 173, 171, 0.18);
+    --surface-low: rgba(205, 173, 171, 0.08);
+    --surface-mid: rgba(205, 173, 171, 0.25);
+    --surface-high: rgba(163, 126, 132, 0.15);
+    --surface-top: rgba(163, 126, 132, 0.25);
+    --card-bg: rgba(255, 255, 255, 0.55);
+    --card-border: rgba(163, 126, 132, 0.12);
+
+    --primary: #A37E84;
+    --primary-hover: #B8929A;
+    --primary-active: #8B6A70;
+    --primary-muted: #917F88;
+    --primary-soft: rgba(163, 126, 132, 0.14);
+    --primary-ghost: rgba(163, 126, 132, 0.06);
+
+    --secondary: #836871;
+    --secondary-hover: #9A7E86;
+    --secondary-soft: rgba(131, 104, 113, 0.10);
+
+    --accent: #CDADAB;
+    --accent-soft: rgba(205, 173, 171, 0.15);
+
+    --text: #3A2428;
+    --text-secondary: #5E3D44;
+    --text-muted: #917F88;
+    --text-dim: #BBAAAF;
+
+    --border: rgba(163, 126, 132, 0.12);
+    --border-subtle: rgba(163, 126, 132, 0.06);
+    --border-accent: rgba(163, 126, 132, 0.20);
+    --border-strong: rgba(163, 126, 132, 0.18);
+
+    --shadow-color: rgba(131, 104, 113, 0.08);
+    --glow-primary: rgba(163, 126, 132, 0.20);
+    --glow-secondary: rgba(131, 104, 113, 0.10);
+    --glow-ambient: rgba(235, 215, 206, 0.6);
+
+    --orb-gradient-1: #A37E84;
+    --orb-gradient-2: #CDADAB;
+    --orb-gradient-3: #836871;
+    --orb-glow: rgba(163, 126, 132, 0.4);
+
+    --nav-bg: rgba(245, 237, 232, 0.85);
+    --nav-border: rgba(163, 126, 132, 0.10);
+
+    --success: #4A9D6E;
+    --warning: #C4923D;
+    --error: #C75050;
+    --info: #5B8DB8;
+
+    --theme-color: #F5EDE8;
+    --scheme: light;
+}
+
+/* ─────────────────────────────────────────────
+   Theme 2: Glacier (Light — Cool Blue)
+   Turquoise · Slate Blue · Platinum
+   Glacier · Ice Blue
+   ───────────────────────────────────────────── */
+:root[data-theme="glacier"] {
+    --bg: #E8F2F6;
+    --bg-elevated: #D6EBF3;
+    --surface: rgba(185, 219, 225, 0.20);
+    --surface-low: rgba(185, 219, 225, 0.08);
+    --surface-mid: rgba(185, 219, 225, 0.28);
+    --surface-high: rgba(68, 127, 152, 0.12);
+    --surface-top: rgba(68, 127, 152, 0.20);
+    --card-bg: rgba(255, 255, 255, 0.55);
+    --card-border: rgba(68, 127, 152, 0.10);
+
+    --primary: #447F98;
+    --primary-hover: #5A96AE;
+    --primary-active: #36677C;
+    --primary-muted: #629BB5;
+    --primary-soft: rgba(68, 127, 152, 0.14);
+    --primary-ghost: rgba(68, 127, 152, 0.06);
+
+    --secondary: #629BB5;
+    --secondary-hover: #7AB0C5;
+    --secondary-soft: rgba(98, 155, 181, 0.10);
+
+    --accent: #B9DBE1;
+    --accent-soft: rgba(185, 219, 225, 0.15);
+
+    --text: #1A2E38;
+    --text-secondary: #2C4A58;
+    --text-muted: #6A8A98;
+    --text-dim: #A8C4D0;
+
+    --border: rgba(68, 127, 152, 0.10);
+    --border-subtle: rgba(68, 127, 152, 0.05);
+    --border-accent: rgba(68, 127, 152, 0.18);
+    --border-strong: rgba(68, 127, 152, 0.15);
+
+    --shadow-color: rgba(68, 127, 152, 0.08);
+    --glow-primary: rgba(68, 127, 152, 0.20);
+    --glow-secondary: rgba(98, 155, 181, 0.10);
+    --glow-ambient: rgba(214, 235, 243, 0.6);
+
+    --orb-gradient-1: #447F98;
+    --orb-gradient-2: #629BB5;
+    --orb-gradient-3: #B9DBE1;
+    --orb-glow: rgba(68, 127, 152, 0.4);
+
+    --nav-bg: rgba(232, 242, 246, 0.85);
+    --nav-border: rgba(68, 127, 152, 0.08);
+
+    --success: #3A9D5C;
+    --warning: #C4923D;
+    --error: #C75050;
+    --info: #447F98;
+
+    --theme-color: #E8F2F6;
+    --scheme: light;
+}
+
+/* ─────────────────────────────────────────────
+   Theme 3: Golden Hour (Light — Warm Gold)
+   Bistre · Golden Brown · Rob Roy
+   Marzipan · Buttermilk
+   ───────────────────────────────────────────── */
+:root[data-theme="golden-hour"] {
+    --bg: #F7EEDC;
+    --bg-elevated: #F1DEA8;
+    --surface: rgba(233, 197, 121, 0.18);
+    --surface-low: rgba(233, 197, 121, 0.08);
+    --surface-mid: rgba(233, 197, 121, 0.25);
+    --surface-high: rgba(159, 105, 32, 0.12);
+    --surface-top: rgba(159, 105, 32, 0.20);
+    --card-bg: rgba(255, 255, 255, 0.50);
+    --card-border: rgba(159, 105, 32, 0.10);
+
+    --primary: #9F6920;
+    --primary-hover: #B87D30;
+    --primary-active: #7D5218;
+    --primary-muted: #DAA755;
+    --primary-soft: rgba(159, 105, 32, 0.14);
+    --primary-ghost: rgba(159, 105, 32, 0.06);
+
+    --secondary: #462506;
+    --secondary-hover: #5E3308;
+    --secondary-soft: rgba(70, 37, 6, 0.08);
+
+    --accent: #E9C579;
+    --accent-soft: rgba(233, 197, 121, 0.18);
+
+    --text: #2A1A05;
+    --text-secondary: #462506;
+    --text-muted: #8A6830;
+    --text-dim: #C4A870;
+
+    --border: rgba(159, 105, 32, 0.10);
+    --border-subtle: rgba(159, 105, 32, 0.05);
+    --border-accent: rgba(159, 105, 32, 0.18);
+    --border-strong: rgba(159, 105, 32, 0.15);
+
+    --shadow-color: rgba(70, 37, 6, 0.08);
+    --glow-primary: rgba(159, 105, 32, 0.22);
+    --glow-secondary: rgba(218, 167, 85, 0.12);
+    --glow-ambient: rgba(241, 222, 168, 0.6);
+
+    --orb-gradient-1: #9F6920;
+    --orb-gradient-2: #DAA755;
+    --orb-gradient-3: #E9C579;
+    --orb-glow: rgba(159, 105, 32, 0.4);
+
+    --nav-bg: rgba(247, 238, 220, 0.85);
+    --nav-border: rgba(159, 105, 32, 0.08);
+
+    --success: #5A8C30;
+    --warning: #9F6920;
+    --error: #B84030;
+    --info: #5B7DB8;
+
+    --theme-color: #F7EEDC;
+    --scheme: light;
+}
+
+/* ─────────────────────────────────────────────
+   Theme 4: Velvet Rose (Dark — Cherry/Fuchsia)
+   Black Cherry · Cranberry Jam · Rose Sorbet
+   Fuchsia Glow · Dusty Lilac
+   ───────────────────────────────────────────── */
+:root[data-theme="velvet-rose"] {
+    --bg: #0E0508;
+    --bg-elevated: #190A0E;
+    --surface: rgba(160, 22, 58, 0.12);
+    --surface-low: rgba(160, 22, 58, 0.06);
+    --surface-mid: rgba(160, 22, 58, 0.18);
+    --surface-high: rgba(241, 90, 126, 0.10);
+    --surface-top: rgba(241, 90, 126, 0.18);
+    --card-bg: rgba(255, 255, 255, 0.04);
+    --card-border: rgba(241, 90, 126, 0.10);
+
+    --primary: #F15A7E;
+    --primary-hover: #F4758F;
+    --primary-active: #D94568;
+    --primary-muted: #A0163A;
+    --primary-soft: rgba(241, 90, 126, 0.16);
+    --primary-ghost: rgba(241, 90, 126, 0.08);
+
+    --secondary: #E6258A;
+    --secondary-hover: #F04DA0;
+    --secondary-soft: rgba(230, 37, 138, 0.12);
+
+    --accent: #B59CB6;
+    --accent-soft: rgba(181, 156, 182, 0.12);
+
+    --text: #F5E8EC;
+    --text-secondary: #D4B0BA;
+    --text-muted: #8A5A68;
+    --text-dim: #5C3540;
+
+    --border: rgba(241, 90, 126, 0.10);
+    --border-subtle: rgba(241, 90, 126, 0.05);
+    --border-accent: rgba(241, 90, 126, 0.20);
+    --border-strong: rgba(241, 90, 126, 0.15);
+
+    --shadow-color: rgba(0, 0, 0, 0.5);
+    --glow-primary: rgba(241, 90, 126, 0.25);
+    --glow-secondary: rgba(230, 37, 138, 0.15);
+    --glow-ambient: rgba(25, 10, 14, 0.8);
+
+    --orb-gradient-1: #F15A7E;
+    --orb-gradient-2: #E6258A;
+    --orb-gradient-3: #A0163A;
+    --orb-glow: rgba(241, 90, 126, 0.5);
+
+    --nav-bg: rgba(14, 5, 8, 0.88);
+    --nav-border: rgba(241, 90, 126, 0.08);
+
+    --success: #4ade80;
+    --warning: #fbbf24;
+    --error: #ef4444;
+    --info: #60a5fa;
+
+    --theme-color: #0E0508;
+    --scheme: dark;
+}
+
+/* =============================================
+   Spacing Scale (4px base unit)
+   ============================================= */
+:root {
+    --space-0: 0;
+    --space-px: 1px;
+    --space-0-5: 2px;
+    --space-1: 4px;
+    --space-2: 8px;
+    --space-3: 12px;
+    --space-4: 16px;
+    --space-5: 20px;
+    --space-6: 24px;
+    --space-7: 28px;
+    --space-8: 32px;
+    --space-10: 40px;
+    --space-12: 48px;
+    --space-16: 64px;
+    --space-20: 80px;
+    --space-24: 96px;
+
+    --space-screen-x: 20px;
+}
+
+
+/* =============================================
+   Typography Scale
+   ============================================= */
+:root {
+    --font-display: 'Outfit', system-ui, -apple-system, sans-serif;
+    --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+    --font-serif: 'Playfair Display', 'Lora', serif;
+    --font-mono: 'Fira Code', monospace;
+
+    --text-2xs: 0.625rem;
+    --text-xs: 0.75rem;
+    --text-sm: 0.875rem;
+    --text-base: 1rem;
+    --text-lg: 1.125rem;
+    --text-xl: 1.25rem;
+    --text-2xl: 1.5rem;
+    --text-3xl: 1.875rem;
+    --text-4xl: 2.25rem;
+
+    --weight-light: 300;
+    --weight-regular: 400;
+    --weight-medium: 500;
+    --weight-semibold: 600;
+    --weight-bold: 700;
+
+    --leading-none: 1;
+    --leading-tight: 1.15;
+    --leading-snug: 1.3;
+    --leading-normal: 1.5;
+    --leading-relaxed: 1.65;
+
+    --tracking-tighter: -0.03em;
+    --tracking-tight: -0.02em;
+    --tracking-normal: 0;
+    --tracking-wide: 0.02em;
+    --tracking-wider: 0.05em;
+    --tracking-widest: 0.1em;
+}
+
+/* =============================================
+   Border Radius Scale
+   ============================================= */
+:root {
+    --radius-sm: 8px;
+    --radius-md: 14px;
+    --radius-lg: 20px;
+    --radius-xl: 28px;
+    --radius-2xl: 36px;
+    --radius-full: 9999px;
+}
+
+/* =============================================
+   Elevation (Shadows)
+   ============================================= */
+:root {
+    --shadow-sm: 0 2px 8px var(--shadow-color);
+    --shadow-md: 0 4px 20px var(--shadow-color);
+    --shadow-lg: 0 8px 40px var(--shadow-color);
+    --shadow-xl: 0 16px 60px var(--shadow-color);
+}
+
+/* =============================================
+   Motion / Transitions
+   ============================================= */
+:root {
+    --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+    --ease-in: cubic-bezier(0.55, 0, 1, 0.45);
+    --ease-in-out: cubic-bezier(0.37, 0, 0.63, 1);
+    --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+    --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+
+    --duration-instant: 100ms;
+    --duration-fast: 150ms;
+    --duration-normal: 250ms;
+    --duration-slow: 400ms;
+    --duration-slower: 600ms;
+    --duration-slowest: 1000ms;
+}

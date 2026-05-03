@@ -1,0 +1,292 @@
+/* =============================================
+   ARIA — Animations Library v2.0
+   Organic, Subtle, Living Micro-interactions
+   ============================================= */
+
+/* ─── Entrance Animations ─── */
+@keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fade-up {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-down {
+    from { opacity: 0; transform: translateY(-12px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scale-in {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes slide-up {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+}
+
+/* ─── Staggered Card Entries ─── */
+.home-view .card:nth-child(1) { animation: fade-up 0.5s var(--ease-out) 0.05s both; }
+.home-view .card:nth-child(2) { animation: fade-up 0.5s var(--ease-out) 0.10s both; }
+.home-view .card:nth-child(3) { animation: fade-up 0.5s var(--ease-out) 0.15s both; }
+.home-view .card:nth-child(4) { animation: fade-up 0.5s var(--ease-out) 0.20s both; }
+.home-view .grid-2 { animation: fade-up 0.5s var(--ease-out) 0.12s both; }
+.home-view .section-label { animation: fade-up 0.5s var(--ease-out) 0.18s both; }
+
+/* ─── Hover Lift for Cards ─── */
+@media (hover: hover) {
+    .card:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-md);
+    }
+
+    .theme-card:hover {
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-lg);
+    }
+}
+
+/* ─── Shimmer / Loading Skeleton ─── */
+@keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+
+.skeleton {
+    background: linear-gradient(90deg, 
+        var(--surface-low) 25%, 
+        var(--surface-mid) 50%, 
+        var(--surface-low) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s linear infinite;
+    border-radius: var(--radius-md);
+}
+
+/* ─── Ripple Effect ─── */
+@keyframes ripple {
+    0% { transform: scale(0); opacity: 0.4; }
+    100% { transform: scale(4); opacity: 0; }
+}
+
+/* ─── Float / Levitate ─── */
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+/* ─── Gentle Rotation ─── */
+@keyframes gentle-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* ─── Onboarding Animations ─── */
+.onboarding-step {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--space-5);
+    padding: var(--space-8) 0;
+}
+
+.onboarding-step.active {
+    display: flex;
+    animation: fade-up 0.4s var(--ease-out);
+}
+
+.onboarding-icon {
+    font-size: 48px;
+    animation: float 4s ease-in-out infinite;
+}
+
+.onboarding-question {
+    font-family: var(--font-display);
+    font-size: var(--text-2xl);
+    color: var(--text);
+}
+
+.onboarding-desc {
+    color: var(--text-muted);
+    font-size: var(--text-sm);
+    max-width: 280px;
+}
+
+.onboarding-actions {
+    display: flex;
+    gap: var(--space-3);
+    width: 100%;
+    max-width: 280px;
+    margin-top: var(--space-4);
+}
+
+.onboarding-actions .btn { flex: 1; }
+
+/* ─── Progress Bar ─── */
+.onboarding-progress {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-4) 0;
+    width: 100%;
+}
+
+.progress-bar {
+    flex: 1;
+    height: 3px;
+    background: var(--surface);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: var(--primary);
+    border-radius: 2px;
+    transition: width 0.5s var(--ease-out);
+    width: 20%;
+}
+
+.progress-label {
+    font-size: var(--text-2xs);
+    color: var(--text-muted);
+    font-weight: var(--weight-bold);
+    white-space: nowrap;
+}
+
+/* ─── Selector Grid (Onboarding) ─── */
+.selector-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: var(--space-3);
+    width: 100%;
+}
+
+.selector-grid.cols-1 {
+    grid-template-columns: 1fr;
+}
+
+.selector-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-4);
+    border-radius: var(--radius-lg);
+    background: var(--card-bg);
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: all 0.25s var(--ease-out);
+}
+
+.selector-card.selected {
+    border-color: var(--primary);
+    background: var(--primary-ghost);
+}
+
+.selector-card:active { transform: scale(0.96); }
+
+.selector-card__icon { font-size: 24px; }
+.selector-card__label {
+    font-family: var(--font-display);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-bold);
+    color: var(--text);
+}
+.selector-card__desc {
+    font-size: var(--text-2xs);
+    color: var(--text-muted);
+    text-align: center;
+}
+
+/* ─── Completion ─── */
+.onboarding-complete {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-5);
+    text-align: center;
+    padding: var(--space-12) 0;
+}
+
+.completion-check {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: scale-in 0.6s var(--ease-spring);
+}
+
+.completion-check svg {
+    width: 32px;
+    height: 32px;
+    fill: none;
+    stroke: white;
+    stroke-width: 3;
+}
+
+/* ─── Consent Items ─── */
+.consent-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    width: 100%;
+    text-align: left;
+}
+
+.consent-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    padding: var(--space-4);
+    background: var(--card-bg);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--card-border);
+}
+
+.consent-item__label {
+    font-weight: var(--weight-semibold);
+    font-size: var(--text-sm);
+    color: var(--text);
+}
+
+.consent-item__desc {
+    font-size: var(--text-2xs);
+    color: var(--text-muted);
+    margin-top: 2px;
+}
+
+/* ─── Auth Checkbox ─── */
+.auth-checkbox {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    cursor: pointer;
+    margin: var(--space-3) 0;
+}
+
+.auth-checkbox input {
+    width: 18px;
+    height: 18px;
+    margin-top: 2px;
+    accent-color: var(--primary);
+}
+
+.auth-checkbox__label {
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+    line-height: 1.5;
+}
+
+.auth-checkbox__label a {
+    color: var(--primary);
+    font-weight: var(--weight-semibold);
+}

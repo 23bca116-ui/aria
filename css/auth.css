@@ -1,0 +1,269 @@
+/* =============================================
+   ARIA — Auth Screens v2.0
+   Matching Reference: Centered Logo, Clean Card
+   ============================================= */
+
+/* ─── Auth Landing Screen ─── */
+.auth-landing {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100dvh - 120px);
+    text-align: center;
+    padding: var(--space-8) var(--space-5);
+    gap: var(--space-5);
+}
+
+.auth-landing__orb {
+    animation: fade-in 1s var(--ease-out);
+}
+
+.auth-brand-hero {
+    font-family: var(--font-display);
+    font-size: 52px;
+    font-weight: var(--weight-bold);
+    letter-spacing: var(--tracking-widest);
+    color: var(--text);
+    animation: fade-up 0.8s var(--ease-out) 0.2s both;
+}
+
+.auth-tagline {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    letter-spacing: var(--tracking-wider);
+    text-transform: uppercase;
+    line-height: var(--leading-relaxed);
+    animation: fade-up 0.8s var(--ease-out) 0.35s both;
+}
+
+.auth-cta-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    width: 100%;
+    max-width: 320px;
+    animation: fade-up 0.8s var(--ease-out) 0.5s both;
+}
+
+.auth-divider {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    margin: var(--space-2) 0;
+    color: var(--text-dim);
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-widest);
+}
+
+.auth-divider::before,
+.auth-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+}
+
+.btn-google {
+    position: relative;
+    padding-left: 44px;
+}
+
+.btn-icon-svg {
+    position: absolute;
+    left: 16px;
+    width: 18px;
+    height: 18px;
+}
+
+.auth-guest-link {
+    background: none;
+    border: none;
+    color: var(--primary);
+    font-family: var(--font-display);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-bold);
+    cursor: pointer;
+    padding: var(--space-2);
+    transition: opacity 0.2s;
+    animation: fade-up 0.8s var(--ease-out) 0.6s both;
+}
+
+.auth-guest-link:hover { opacity: 0.7; }
+
+.auth-trust {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--text-2xs);
+    color: var(--text-dim);
+    animation: fade-up 0.8s var(--ease-out) 0.7s both;
+}
+
+/* ─── Auth Form Screens ─── */
+.auth-screen {
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100dvh - 120px);
+    padding: var(--space-4) 0;
+}
+
+.auth-screen__back {
+    margin-bottom: var(--space-4);
+}
+
+.auth-screen__orb {
+    display: flex;
+    justify-content: center;
+    margin-bottom: var(--space-5);
+}
+
+.auth-screen h2 {
+    font-family: var(--font-display);
+    font-size: var(--text-2xl);
+    text-align: center;
+    margin-bottom: var(--space-2);
+}
+
+.auth-subtitle {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: var(--text-sm);
+    margin-bottom: var(--space-6);
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+}
+
+.auth-link {
+    background: none;
+    border: none;
+    color: var(--primary);
+    font-family: var(--font-display);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-bold);
+    cursor: pointer;
+    padding: 0;
+    text-align: right;
+    display: block;
+    margin-bottom: var(--space-4);
+}
+
+.auth-footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    margin-top: auto;
+    padding: var(--space-6) 0;
+}
+
+.auth-footer__text {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+}
+
+/* ─── Small Orb (used in auth screens) ─── */
+.aria-orb-container {
+    width: 100px;
+    height: 100px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.aria-orb__ambient {
+    position: absolute;
+    width: 160%;
+    height: 160%;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--orb-glow), transparent 70%);
+    animation: aura-breathe 6s ease-in-out infinite;
+}
+
+.aria-orb__core {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    position: relative;
+    background: radial-gradient(
+        circle at 35% 30%,
+        var(--orb-gradient-2),
+        var(--orb-gradient-1) 50%,
+        var(--orb-gradient-3) 100%
+    );
+    box-shadow:
+        0 0 40px var(--orb-glow),
+        inset -6px -6px 20px rgba(0, 0, 0, 0.2),
+        inset 4px 4px 15px rgba(255, 255, 255, 0.1);
+    animation: idle-breathe 5s ease-in-out infinite;
+    z-index: 2;
+}
+
+.aria-orb__highlight {
+    position: absolute;
+    top: 16%;
+    left: 22%;
+    width: 30%;
+    height: 22%;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    filter: blur(6px);
+}
+
+/* ─── Onboarding Container ─── */
+.onboarding {
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100dvh - 120px);
+    padding: var(--space-4) 0;
+}
+
+/* ─── Theme Grid in Onboarding ─── */
+.onboarding .theme-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-3);
+    width: 100%;
+}
+
+.onboarding .theme-card {
+    padding: var(--space-3);
+    background: var(--card-bg);
+    border: 2px solid transparent;
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    transition: all 0.25s var(--ease-out);
+    text-align: center;
+}
+
+.onboarding .theme-card.selected {
+    border-color: var(--primary);
+    background: var(--primary-ghost);
+}
+
+.onboarding .theme-card__swatches {
+    display: flex;
+    gap: 4px;
+    justify-content: center;
+    margin-bottom: var(--space-2);
+}
+
+.onboarding .theme-card__swatch {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+
+.onboarding .theme-card__name {
+    font-family: var(--font-display);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-bold);
+    color: var(--text);
+}

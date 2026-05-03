@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="cloud-blush">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no, maximum-scale=1">
+    <title>ARIA — Your AI Companion</title>
+    <meta name="description"
+        content="ARIA is your premium AI voice companion. Always present, always listening, always evolving with you.">
+
+    <!-- PWA & Mobile -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#F5EDE8" id="meta-theme-color">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon" href="assets/aria_app_icon.png">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&family=Playfair+Display:wght@700&family=Lora:wght@400;500&family=Fira+Code:wght@400;500&display=swap"
+        rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/tokens.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/orb.css">
+    <link rel="stylesheet" href="css/shell.css">
+    <link rel="stylesheet" href="css/auth.css">
+
+    <!-- Supabase Client -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+
+<body>
+
+    <!-- Ambient Background -->
+    <div id="ambient-bg" aria-hidden="true">
+        <div class="ambient-orb ambient-orb--1"></div>
+        <div class="ambient-orb ambient-orb--2"></div>
+    </div>
+
+    <div id="app">
+
+        <!-- ════════════ Header ════════════ -->
+        <header id="app-header">
+            <div class="header-brand">
+                <div class="header-brand-logo"></div>
+                <span class="header-brand-text">ARIA</span>
+            </div>
+            <div class="header-actions">
+                <button class="btn-icon" id="btn-theme-toggle" aria-label="Cycle theme">
+                    <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245c0-.399-.078-.78-.22-1.128zm0 0a15.998 15.998 0 003.388-1.62m-5.043-.025a15.994 15.994 0 011.622-3.395m3.42 3.42a15.995 15.995 0 004.764-4.648l3.876-5.814a1.151 1.151 0 00-1.597-1.597L14.146 6.32a15.996 15.996 0 00-4.649 4.763m3.42 3.42a6.776 6.776 0 00-3.42-3.42" /></svg>
+                </button>
+            </div>
+        </header>
+
+
+        <!-- ════════════ Main Content ════════════ -->
+        <main id="app-content">
+
+            <!-- ═══════════════════════════════════
+                 AUTH VIEWS
+                 ═══════════════════════════════════ -->
+
+            <!-- AUTH LANDING -->
+            <section id="view-auth-landing" class="view active" aria-label="Welcome">
+                <div class="auth-landing">
+                    <div class="auth-landing__orb">
+                        <div class="orb-container">
+                            <div class="orb-visual orb-visual--idle">
+                                <div class="orb-core"></div>
+                                <div class="ring-1 orb-ring"></div>
+                                <div class="ring-2 orb-ring"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <h1 class="auth-brand-hero">ARIA</h1>
+                    <p class="auth-tagline">Your AI companion.<br>Always present. Always evolving.</p>
+                    <div class="auth-cta-group">
+                        <button class="btn btn-primary btn-lg btn-block" onclick="navigateAuth('view-login')">
+                            Sign In with Email
+                        </button>
+                        
+                        <div class="auth-divider">
+                            <span>or</span>
+                        </div>
+
+                        <button class="btn btn-secondary btn-lg btn-block btn-google" onclick="AuthService.signInWithGoogle()">
+                            <svg class="btn-icon-svg" viewBox="0 0 24 24">
+                                <path fill="#EA4335" d="M12 5.04c1.94 0 3.51.66 4.88 1.96L20.52 3.4C18.15 1.28 15.19 0 12 0 7.31 0 3.25 2.68 1.21 6.6L5.5 9.92C6.54 6.95 9.35 5.04 12 5.04z"/>
+                                <path fill="#4285F4" d="M23.49 12.27c0-.8-.07-1.57-.2-2.32H12v4.39h6.44c-.28 1.48-1.12 2.73-2.38 3.58l4.28 3.32c2.5-2.3 3.95-5.69 3.95-9.22c0-.12-.01-.24-.01-.35z"/>
+                                <path fill="#34A853" d="M12 24c3.24 0 5.95-1.07 7.94-2.91l-4.28-3.32c-1.11.75-2.53 1.19-4.14 1.19c-3.17 0-5.85-2.14-6.81-5.02L.35 17.22C2.31 21.32 6.55 24 12 24z"/>
+                                <path fill="#FBBC05" d="M5.19 14.24c-.24-.72-.38-1.49-.38-2.3c0-.81.14-1.58.38-2.3L.35 6.6C-.46 8.22-.92 10.05-.92 12c0 1.95.46 3.78 1.27 5.4l4.84-3.16z"/>
+                            </svg>
+                            Continue with Google
+                        </button>
+
+                        <button class="btn btn-outline btn-lg btn-block" onclick="navigateAuth('view-signup')">
+                            Create Account
+                        </button>
+                    </div>
+                    <button class="auth-guest-link" onclick="enterAsGuest()">
+                        Preview as Guest →
+                    </button>
+                    <div class="auth-trust">
+                        <span>🔒</span>
+                        <span>Your voice. Your data. Your companion.</span>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- LOGIN -->
+            <section id="view-login" class="view" aria-label="Sign In">
+                <div class="auth-screen">
+                    <div class="auth-screen__back">
+                        <button class="btn-icon" onclick="navigateAuth('view-auth-landing')" aria-label="Back">
+                            <svg viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="auth-screen__orb">
+                        <div class="orb-container" style="height: 120px;">
+                            <div class="orb-visual orb-visual--idle" style="width: 100px; height: 100px;">
+                                <div class="orb-core"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <h2>Welcome back</h2>
+                    <p class="auth-subtitle">Sign in to continue your journey</p>
+                    <form id="login-form" class="auth-form" autocomplete="off">
+                        <div class="input-group">
+                            <label class="input-label" for="login-email">Email</label>
+                            <input class="input" type="email" id="login-email" name="email"
+                                placeholder="you@example.com" required>
+                        </div>
+                        <div class="input-group">
+                            <label class="input-label" for="login-password">Password</label>
+                            <div class="input-with-toggle">
+                                <input class="input" type="password" id="login-password" name="password"
+                                    placeholder="••••••••" required>
+                                <button type="button" class="password-toggle" aria-label="Show password">
+                                    <svg class="eye-open" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                    </svg>
+                                    <svg class="eye-closed" viewBox="0 0 24 24" style="display:none">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.522 10.522 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <button type="button" class="auth-link" onclick="navigateAuth('view-forgot-password')">Forgot
+                            password?</button>
+                        <div id="login-message" class="form-message"></div>
+                        <button type="submit" class="btn btn-primary btn-lg btn-block">
+                            <span class="btn__text">Sign In</span>
+                            <span class="btn-loader"><span class="loader-dot"></span><span
+                                    class="loader-dot"></span><span class="loader-dot"></span></span>
+                        </button>
+                    </form>
+                    <div class="auth-footer">
+                        <span class="auth-footer__text">New here?</span>
+                        <button class="auth-link" onclick="navigateAuth('view-signup')">Create account</button>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- SIGNUP -->
+            <section id="view-signup" class="view" aria-label="Create Account">
+                <div class="auth-screen">
+                    <div class="auth-screen__back">
+                        <button class="btn-icon" onclick="navigateAuth('view-auth-landing')" aria-label="Back">
+                            <svg viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="auth-screen__orb">
+                        <div class="aria-orb-container" data-state="idle">
+                            <div class="aria-orb__ambient"></div>
+                            <div class="aria-orb__core">
+                                <div class="aria-orb__highlight"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <h2>Begin your journey</h2>
+                    <p class="auth-subtitle">Create your companion account</p>
+                    <form id="signup-form" class="auth-form" autocomplete="off">
+                        <div class="input-group">
+                            <label class="input-label" for="signup-name">Full Name</label>
+                            <input class="input" type="text" id="signup-name" name="name" placeholder="Your name"
+                                required>
+                        </div>
+                        <div class="input-group">
+                            <label class="input-label" for="signup-email">Email</label>
+                            <input class="input" type="email" id="signup-email" name="email"
+                                placeholder="you@example.com" required>
+                        </div>
+                        <div class="input-group">
+                            <label class="input-label" for="signup-password">Password</label>
+                            <div class="input-with-toggle">
+                                <input class="input" type="password" id="signup-password" name="password"
+                                    placeholder="At least 6 characters" required>
+                                <button type="button" class="password-toggle" aria-label="Show password">
+                                    <svg class="eye-open" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                    </svg>
+                                    <svg class="eye-closed" viewBox="0 0 24 24" style="display:none">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.522 10.522 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88" />
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="password-strength">
+                                <div class="password-strength__fill" id="pw-strength-fill"></div>
+                            </div>
+                        </div>
+                        <label class="auth-checkbox">
+                            <input type="checkbox" name="terms">
+                            <span class="auth-checkbox__label">I agree to the <a href="#"
+                                    onclick="event.preventDefault()">Privacy Policy</a> and <a href="#"
+                                    onclick="event.preventDefault()">Terms of Service</a></span>
+                        </label>
+                        <div id="signup-message" class="form-message"></div>
+                        <button type="submit" class="btn btn-primary btn-lg btn-block">
+                            <span class="btn__text">Create Account</span>
+                            <span class="btn-loader"><span class="loader-dot"></span><span
+                                    class="loader-dot"></span><span class="loader-dot"></span></span>
+                        </button>
+                    </form>
+                    <div class="auth-footer">
+                        <span class="auth-footer__text">Already have an account?</span>
+                        <button class="auth-link" onclick="navigateAuth('view-login')">Sign in</button>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- FORGOT PASSWORD -->
+            <section id="view-forgot-password" class="view" aria-label="Reset Password">
+                <div class="auth-screen">
+                    <div class="auth-screen__back">
+                        <button class="btn-icon" onclick="navigateAuth('view-login')" aria-label="Back">
+                            <svg viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="auth-screen__orb">
+                        <div class="aria-orb-container" data-state="idle">
+                            <div class="aria-orb__ambient"></div>
+                            <div class="aria-orb__core">
+                                <div class="aria-orb__highlight"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <h2>Reset password</h2>
+                    <p class="auth-subtitle">We'll send a reset link to your email</p>
+                    <form id="forgot-form" class="auth-form" autocomplete="off">
+                        <div class="input-group">
+                            <label class="input-label" for="forgot-email">Email</label>
+                            <input class="input" type="email" id="forgot-email" name="email"
+                                placeholder="you@example.com" required>
+                        </div>
+                        <div id="forgot-message" class="form-message"></div>
+                        <button type="submit" class="btn btn-primary btn-lg btn-block">
+                            <span class="btn__text">Send Reset Link</span>
+                            <span class="btn-loader"><span class="loader-dot"></span><span
+                                    class="loader-dot"></span><span class="loader-dot"></span></span>
+                        </button>
+                    </form>
+                    <div class="auth-footer">
+                        <span class="auth-footer__text">Remember it?</span>
+                        <button class="auth-link" onclick="navigateAuth('view-login')">Sign in</button>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- ONBOARDING -->
+            <section id="view-onboarding" class="view" aria-label="Onboarding">
+                <div class="onboarding">
+                    <div class="onboarding-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="ob-progress-fill"></div>
+                        </div>
+                        <span class="progress-label" id="ob-progress-label">1 of 5</span>
+                    </div>
+
+                    <!-- Step 1: Name -->
+                    <div class="onboarding-step active" data-step="1">
+                        <div class="onboarding-icon">✦</div>
+                        <h2 class="onboarding-question">What should I call you?</h2>
+                        <p class="onboarding-desc">I want to make every conversation personal.</p>
+                        <div class="input-group">
+                            <input class="input" type="text" id="onboarding-name" placeholder="Your name"
+                                autocomplete="off">
+                        </div>
+                        <div class="onboarding-actions">
+                            <button class="btn btn-ghost" onclick="OnboardingController.prev()">Back</button>
+                            <button class="btn btn-primary" onclick="OnboardingController.next()">Continue</button>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Language -->
+                    <div class="onboarding-step" data-step="2">
+                        <div class="onboarding-icon">🌍</div>
+                        <h2 class="onboarding-question">Choose your language</h2>
+                        <p class="onboarding-desc">How would you like us to communicate?</p>
+                        <div class="selector-grid">
+                            <div class="selector-card selected" data-category="language" data-value="en">
+                                <span class="selector-card__icon">🇺🇸</span>
+                                <span class="selector-card__label">English</span>
+                            </div>
+                            <div class="selector-card" data-category="language" data-value="hi">
+                                <span class="selector-card__icon">🇮🇳</span>
+                                <span class="selector-card__label">Hindi</span>
+                            </div>
+                            <div class="selector-card" data-category="language" data-value="es">
+                                <span class="selector-card__icon">🇪🇸</span>
+                                <span class="selector-card__label">Español</span>
+                            </div>
+                            <div class="selector-card" data-category="language" data-value="fr">
+                                <span class="selector-card__icon">🇫🇷</span>
+                                <span class="selector-card__label">Français</span>
+                            </div>
+                            <div class="selector-card" data-category="language" data-value="ja">
+                                <span class="selector-card__icon">🇯🇵</span>
+                                <span class="selector-card__label">日本語</span>
+                            </div>
+                            <div class="selector-card" data-category="language" data-value="ar">
+                                <span class="selector-card__icon">🇸🇦</span>
+                                <span class="selector-card__label">العربية</span>
+                            </div>
+                        </div>
+                        <div class="onboarding-actions">
+                            <button class="btn btn-ghost" onclick="OnboardingController.prev()">Back</button>
+                            <button class="btn btn-primary" onclick="OnboardingController.next()">Continue</button>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Voice -->
+                    <div class="onboarding-step" data-step="3">
+                        <div class="onboarding-icon">🎙</div>
+                        <h2 class="onboarding-question">How should I sound?</h2>
+                        <p class="onboarding-desc">Choose the voice that resonates with you.</p>
+                        <div class="selector-grid cols-1">
+                            <div class="selector-card selected" data-category="voice" data-value="calm">
+                                <span class="selector-card__label">Calm & Soothing</span>
+                                <span class="selector-card__desc">Gentle, grounding, and peaceful</span>
+                            </div>
+                            <div class="selector-card" data-category="voice" data-value="warm">
+                                <span class="selector-card__label">Warm & Caring</span>
+                                <span class="selector-card__desc">Soft, empathetic, and nurturing</span>
+                            </div>
+                            <div class="selector-card" data-category="voice" data-value="energetic">
+                                <span class="selector-card__label">Energetic & Uplifting</span>
+                                <span class="selector-card__desc">Bright, motivating, and positive</span>
+                            </div>
+                            <div class="selector-card" data-category="voice" data-value="wise">
+                                <span class="selector-card__label">Wise & Thoughtful</span>
+                                <span class="selector-card__desc">Deep, reflective, and insightful</span>
+                            </div>
+                        </div>
+                        <div class="onboarding-actions">
+                            <button class="btn btn-ghost" onclick="OnboardingController.prev()">Back</button>
+                            <button class="btn btn-primary" onclick="OnboardingController.next()">Continue</button>
+                        </div>
+                    </div>
+
+                    <!-- Step 4: Theme -->
+                    <div class="onboarding-step" data-step="4">
+                        <div class="onboarding-icon">🎨</div>
+                        <h2 class="onboarding-question">Pick your vibe</h2>
+                        <p class="onboarding-desc">Choose a visual theme. You can always change it later.</p>
+                        <div class="theme-grid">
+                            <div class="theme-card selected" data-theme="cloud-blush">
+                                <div class="theme-card__name">Cloud Blush</div>
+                                <div class="theme-card__swatches">
+                                    <div class="theme-card__swatch" style="background:#A37E84"></div>
+                                    <div class="theme-card__swatch" style="background:#CDADAB"></div>
+                                    <div class="theme-card__swatch" style="background:#EBD7CE"></div>
+                                    <div class="theme-card__swatch" style="background:#917F88"></div>
+                                    <div class="theme-card__swatch" style="background:#836871"></div>
+                                </div>
+                            </div>
+                            <div class="theme-card" data-theme="glacier">
+                                <div class="theme-card__name">Glacier</div>
+                                <div class="theme-card__swatches">
+                                    <div class="theme-card__swatch" style="background:#447F98"></div>
+                                    <div class="theme-card__swatch" style="background:#629BB5"></div>
+                                    <div class="theme-card__swatch" style="background:#DADEE1"></div>
+                                    <div class="theme-card__swatch" style="background:#B9DBE1"></div>
+                                    <div class="theme-card__swatch" style="background:#D6EBF3"></div>
+                                </div>
+                            </div>
+                            <div class="theme-card" data-theme="golden-hour">
+                                <div class="theme-card__name">Golden Hour</div>
+                                <div class="theme-card__swatches">
+                                    <div class="theme-card__swatch" style="background:#462506"></div>
+                                    <div class="theme-card__swatch" style="background:#9F6920"></div>
+                                    <div class="theme-card__swatch" style="background:#DAA755"></div>
+                                    <div class="theme-card__swatch" style="background:#E9C579"></div>
+                                    <div class="theme-card__swatch" style="background:#F1DEA8"></div>
+                                </div>
+                            </div>
+                            <div class="theme-card" data-theme="velvet-rose">
+                                <div class="theme-card__name">Velvet Rose</div>
+                                <div class="theme-card__swatches">
+                                    <div class="theme-card__swatch" style="background:#190A0E"></div>
+                                    <div class="theme-card__swatch" style="background:#A0163A"></div>
+                                    <div class="theme-card__swatch" style="background:#F15A7E"></div>
+                                    <div class="theme-card__swatch" style="background:#E6258A"></div>
+                                    <div class="theme-card__swatch" style="background:#B59CB6"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="onboarding-actions">
+                            <button class="btn btn-ghost" onclick="OnboardingController.prev()">Back</button>
+                            <button class="btn btn-primary" onclick="OnboardingController.next()">Continue</button>
+                        </div>
+                    </div>
+
+                    <!-- Step 5: Consent -->
+                    <div class="onboarding-step" data-step="5">
+                        <div class="onboarding-icon">🔐</div>
+                        <h2 class="onboarding-question">Memory & Privacy</h2>
+                        <p class="onboarding-desc">Control what ARIA remembers. You're always in control.</p>
+                        <div class="consent-list">
+                            <div class="consent-item">
+                                <div class="consent-item__info">
+                                    <div class="consent-item__label">Remember conversations</div>
+                                    <div class="consent-item__desc">Let ARIA recall past discussions for richer context
+                                    </div>
+                                </div>
+                                <button class="toggle-mini consent-toggle" role="switch" aria-checked="true"
+                                    data-consent="conversations">
+                                    <div class="toggle-mini__thumb"></div>
+                                </button>
+                            </div>
+                            <div class="consent-item">
+                                <div class="consent-item__info">
+                                    <div class="consent-item__label">Learn preferences</div>
+                                    <div class="consent-item__desc">Adapt responses based on your communication style
+                                    </div>
+                                </div>
+                                <button class="toggle-mini consent-toggle" role="switch" aria-checked="true"
+                                    data-consent="preferences">
+                                    <div class="toggle-mini__thumb"></div>
+                                </button>
+                            </div>
+                            <div class="consent-item">
+                                <div class="consent-item__info">
+                                    <div class="consent-item__label">Emotional context</div>
+                                    <div class="consent-item__desc">Understand your mood to respond more thoughtfully
+                                    </div>
+                                </div>
+                                <button class="toggle-mini consent-toggle" role="switch" aria-checked="true"
+                                    data-consent="emotional">
+                                    <div class="toggle-mini__thumb"></div>
+                                </button>
+                            </div>
+                            <div class="consent-item">
+                                <div class="consent-item__info">
+                                    <div class="consent-item__label">Voice patterns</div>
+                                    <div class="consent-item__desc">Store voice data to improve recognition accuracy
+                                    </div>
+                                </div>
+                                <button class="toggle-mini consent-toggle" role="switch" aria-checked="false"
+                                    data-consent="voice">
+                                    <div class="toggle-mini__thumb"></div>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="onboarding-actions">
+                            <button class="btn btn-ghost" onclick="OnboardingController.prev()">Back</button>
+                            <button class="btn btn-primary" onclick="OnboardingController.next()">Complete
+                                Setup</button>
+                        </div>
+                    </div>
+
+                    <!-- Completion -->
+                    <div class="onboarding-step" id="ob-completion">
+                        <div class="onboarding-complete">
+                            <div class="completion-check">
+                                <svg viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                                </svg>
+                            </div>
+                            <h2>Everything's set</h2>
+                            <p>ARIA is ready. Your companion awaits.</p>
+                            <button class="btn btn-primary btn-lg" onclick="OnboardingController.finish()">
+                                Enter ARIA
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- ═══════════════════════════════════
+                 APP VIEWS
+                 ═══════════════════════════════════ -->
+
+            <!-- HOME -->
+            <section id="view-home" class="view" aria-label="Home">
+                <div class="home-view">
+                    
+                    <!-- THE ORB -->
+                    <div class="orb-focus">
+                        <div id="aria-orb" class="orb-container">
+                            <div class="orb-aura"></div>
+                            <div id="main-orb-visual" class="orb-visual orb-visual--idle">
+                                <div class="orb-core"></div>
+                                <svg class="orb-mic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z" /></svg>
+                                <div class="ring-1 orb-ring"></div>
+                                <div class="ring-2 orb-ring"></div>
+                                <div class="orb-bars">
+                                    <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="orb-label">
+                            <div class="orb-label__title">Hold to Talk</div>
+                            <div class="orb-label__subtitle" id="orb-status">Aria is listening to the forest...</div>
+                        </div>
+                    </div>
+
+                    <!-- Continue Last Conversation -->
+                    <div class="card card--accent card--full" id="home-last-conv" style="cursor:pointer;">
+                        <div class="card__header">
+                            <span class="card__eyebrow">Continue Last Conversation</span>
+                            <div class="card__orb-dot"></div>
+                        </div>
+                        <p class="card__preview" id="home-last-conv-text">"We were discussing the benefits of rosemary tea for cognitive focus and..."</p>
+                        <div class="card__footer">
+                            <span class="card__timestamp" id="home-last-conv-time">Just now</span>
+                            <button class="btn-pill">Resume →</button>
+                        </div>
+                    </div>
+
+                    <!-- Talk Now & Memories -->
+                    <div class="grid-2">
+                        <div class="card card--action" onclick="Navigation.navigate('view-voice')">
+                            <div class="card__icon">💬</div>
+                            <h3 class="card__title">Talk Now</h3>
+                            <p class="card__subtitle">Start a fresh botanical journey.</p>
+                        </div>
+                        <div class="card card--action" onclick="Navigation.navigate('view-memory')">
+                            <div class="card__icon">🧠</div>
+                            <h3 class="card__title">Memories</h3>
+                            <p class="card__subtitle">Revisit your past insights and journals.</p>
+                        </div>
+                    </div>
+
+                    <!-- ARIA Suggestion -->
+                    <div class="card card--ambient">
+                        <p class="card__ambient-text" id="home-ambient-note">
+                            ARIA Suggestion: The evening light is perfect for a reflection session on your herbal goals.
+                        </p>
+                    </div>
+
+                    <!-- Quick Access -->
+                    <p class="section-label">Quick access</p>
+                    <div class="card card--settings-row" onclick="Navigation.navigate('view-settings')" style="cursor:pointer;">
+                        <div class="settings-profile-mini">
+                            <div class="user-avatar-mini" id="home-user-avatar">S</div>
+                            <div class="user-info-mini">
+                                <span class="user-name-mini" id="home-user-name">Sage Miller</span>
+                                <span class="user-email-mini" id="home-user-email">Botanist & AI Mentor</span>
+                            </div>
+                            <div class="settings-chevron">›</div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+
+
+            <!-- VOICE / CONVERSATION VIEW -->
+            <section id="view-voice" class="view" aria-label="Voice">
+                <div class="conversation-container">
+                    <header class="conversation-header">
+                        <div class="header-back">
+                            <button class="btn-icon" onclick="Navigation.navigate('view-home')">‹</button>
+                        </div>
+                        <h2>ARIA Session</h2>
+                        <span class="status-indicator">
+                            <span class="status-dot"></span> Live
+                        </span>
+                    </header>
+
+                    <div id="transcript-area" class="transcript-scroll">
+                        <div class="chat-bubble aria-msg">Hello! I'm ARIA, your AI companion. Hold the mic button below to speak, or type a message. I'm always here for you. 🌿</div>
+                    </div>
+
+                    <!-- Voice Controls Bar -->
+                    <div class="voice-controls-bar">
+                        <button class="btn-icon-bar" id="btn-speaker-toggle" onclick="OrbController.toggleSpeaker()" aria-label="Toggle Speaker">
+                            <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.114 5.636a9 9 0 010 12.728M16.463 8.288a5.25 5.25 0 010 7.424M6.75 8.25l4.72-4.72a.75.75 0 011.28.53v15.88a.75.75 0 01-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.01 9.01 0 012.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75z" /></svg>
+                        </button>
+                        
+                        <div class="mic-button-wrapper">
+                            <button class="btn-mic" id="voice-mic-button" onclick="OrbController.toggleRecord()">
+                                <div class="mic-ring"></div>
+                                <svg viewBox="0 0 24 24"><path d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z" /></svg>
+                            </button>
+                        </div>
+
+                        <button class="btn-icon-bar" id="btn-end-session" onclick="Navigation.navigate('view-home')" aria-label="End Session">
+                            <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- MEMORY VIEW -->
+            <section id="view-memory" class="view" aria-label="Memory">
+                <div class="memory-container">
+                    <header class="view-header">
+                        <div class="view-header__main">
+                            <span class="view-eyebrow">The Vault</span>
+                            <h1 class="view-title">Memory Vault</h1>
+                        </div>
+                        <div class="memory-count-badge">
+                            <span id="memory-count-total">84</span> stored
+                        </div>
+                    </header>
+
+                    <!-- Search -->
+                    <div class="input-group" style="margin-bottom: var(--space-4);">
+                        <input class="input" type="text" placeholder="Search remembered moments..." style="padding-left: 40px;">
+                    </div>
+
+                    <!-- Filter Chips -->
+                    <div class="tab-strip">
+                        <button class="tab-item active">All</button>
+                        <button class="tab-item">Fact</button>
+                        <button class="tab-item">Preference</button>
+                        <button class="tab-item">Insight</button>
+                    </div>
+
+                    <div id="memory-list" class="memory-list-scroll">
+                        <!-- Memory cards populated via JS -->
+                        <div class="card card--full">
+                            <span class="memory-category">Fact</span>
+                            <p class="memory-text">You mentioned having a mild allergy to lavender but loving the scent of rosemary for focus.</p>
+                            <span class="memory-date">Oct 24, 2023</span>
+                        </div>
+                        <div class="card card--full">
+                            <span class="memory-category">Preference</span>
+                            <p class="memory-text">Preferred temperature for herbal infusions is strictly 85°C to avoid bitterness in delicate leaves.</p>
+                            <span class="memory-date">Nov 02, 2023</span>
+                        </div>
+                        <div class="card card--full" style="border-left: 3px solid var(--primary);">
+                            <span class="memory-category">Insight</span>
+                            <p class="memory-text">Creativity peaks for you during early morning hours after a 10-minute mindfulness session.</p>
+                            <span class="memory-date">Nov 15, 2023</span>
+                        </div>
+                        <div class="card card--full">
+                            <span class="memory-category">Fact</span>
+                            <p class="memory-text">Started the 'Urban Herbalist' journey with three potted plants: Mint, Thyme, and Sage.</p>
+                            <span class="memory-date">Sep 30, 2023</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SETTINGS VIEW -->
+            <section id="view-settings" class="view" aria-label="Settings">
+                <div class="settings-container">
+
+                    <!-- Profile Card -->
+                    <div class="card card--full profile-card">
+                        <div class="profile-main">
+                            <div class="profile-avatar" id="settings-avatar">S</div>
+                            <div class="profile-info">
+                                <h3 id="settings-user-name">Sage Miller</h3>
+                                <p id="settings-user-email">Botanist & AI Mentor</p>
+                            </div>
+                        </div>
+                        <div class="profile-stats">
+                            <div class="stat-item">
+                                <div class="stat-value" id="settings-stat-interactions">0</div>
+                                <div class="stat-label">Interactions</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value" id="settings-stat-memories">0</div>
+                                <div class="stat-label">Memories</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value" id="settings-stat-level">LVL 1</div>
+                                <div class="stat-label">Growth</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Experience Section -->
+                    <p class="section-label">Experience</p>
+                    <div class="settings-list">
+                        <div class="settings-card">
+                            <div class="settings-card__left">
+                                <div class="settings-card__icon">🎨</div>
+                                <span class="settings-card__label">Theme Studio</span>
+                            </div>
+                            <span class="settings-card__value" id="current-theme-label">Cloud Blush</span>
+                        </div>
+                        <div class="settings-card" style="flex-direction: column; align-items: stretch; cursor: default;">
+                            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 12px;">
+                                <div class="settings-card__left">
+                                    <div class="settings-card__icon">🎤</div>
+                                    <span class="settings-card__label">Voice Profile</span>
+                                </div>
+                            </div>
+                            <div class="voice-options" id="voice-options-container" style="display:flex; gap: 8px; flex-wrap: wrap;">
+                                <button class="btn-pill active" data-voice="calm">Calm</button>
+                                <button class="btn-pill" data-voice="warm">Warm</button>
+                                <button class="btn-pill" data-voice="energetic">Energetic</button>
+                                <button class="btn-pill" data-voice="wise">Wise</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Theme Studio -->
+                    <p class="section-label">Theme Studio</p>
+                    <div id="theme-grid" class="theme-grid">
+                        <!-- Populated by theme.js -->
+                    </div>
+
+                    <!-- Font Picker -->
+                    <p class="section-label" style="margin-top: var(--space-6);">Typography</p>
+                    <div id="font-grid" class="font-grid">
+                        <!-- Populated by theme.js -->
+                    </div>
+
+                    <!-- Cognitive Section -->
+                    <p class="section-label" style="margin-top: var(--space-6);">Cognitive</p>
+                    <div class="settings-list">
+                        <div class="settings-card">
+                            <div class="settings-card__left">
+                                <div class="settings-card__icon">🧠</div>
+                                <span class="settings-card__label">Long-term Memory</span>
+                            </div>
+                            <button class="toggle-mini consent-toggle" role="switch" aria-checked="true" data-consent="ltm">
+                                <div class="toggle-mini__thumb"></div>
+                            </button>
+                        </div>
+                        <div class="settings-card">
+                            <div class="settings-card__left">
+                                <div class="settings-card__icon">🔒</div>
+                                <span class="settings-card__label">Privacy & Safety</span>
+                            </div>
+                            <div class="settings-chevron">›</div>
+                        </div>
+                    </div>
+
+                    <!-- System Section -->
+                    <p class="section-label">System</p>
+                    <div class="settings-list">
+                        <div class="settings-card">
+                            <div class="settings-card__left">
+                                <div class="settings-card__icon">ℹ️</div>
+                                <span class="settings-card__label">About ARIA</span>
+                            </div>
+                            <span class="settings-card__value" id="app-version-display">v2.0.0</span>
+                        </div>
+                        <div class="settings-card">
+                            <div class="settings-card__left">
+                                <div class="settings-card__icon">❓</div>
+                                <span class="settings-card__label">Support Center</span>
+                            </div>
+                            <div class="settings-chevron">›</div>
+                        </div>
+                    </div>
+
+                    <!-- Sign Out -->
+                    <button class="btn-logout" onclick="UI.showSignOutSheet()">
+                        ↪ Sign Out
+                    </button>
+
+                    <div style="height: 40px;"></div>
+                </div>
+            </section>
+
+
+        </main>
+
+    <!-- Sign Out Confirmation Sheet -->
+    <div id="signout-sheet" class="bottom-sheet-overlay">
+        <div class="bottom-sheet">
+            <div class="sheet-handle"></div>
+            <div class="sheet-content">
+                <div class="sheet-icon">👋</div>
+                <h2>Sign Out</h2>
+                <p>Are you sure you want to end your current session with ARIA?</p>
+                <div class="sheet-actions">
+                    <button class="btn-sheet btn-sheet--danger" onclick="Auth.signOut()">Sign Out</button>
+                    <button class="btn-sheet" onclick="UI.hideSignOutSheet()">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <nav id="app-nav" aria-label="Main navigation">
+        <button class="nav-item active" data-view="view-home" id="nav-home" aria-label="Talk">
+            <svg class="nav-item__icon" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z" />
+            </svg>
+            <span class="nav-item__label">Talk</span>
+            <div class="nav-indicator"></div>
+        </button>
+        <button class="nav-item" data-view="view-voice" id="nav-voice" aria-label="Chat">
+            <svg class="nav-item__icon" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 01-.825-.242m9.345-8.334a2.126 2.126 0 00-.476-.095 48.64 48.64 0 00-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0011.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155" />
+            </svg>
+            <span class="nav-item__label">Chat</span>
+            <div class="nav-indicator"></div>
+        </button>
+        <button class="nav-item" data-view="view-memory" id="nav-memory" aria-label="Memory">
+            <svg class="nav-item__icon" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.455 2.456L21.75 6l-1.036.259a3.375 3.375 0 00-2.455-2.456z" />
+            </svg>
+            <span class="nav-item__label">Memory</span>
+            <div class="nav-indicator"></div>
+        </button>
+        <button class="nav-item" data-view="view-settings" id="nav-settings" aria-label="Settings">
+            <svg class="nav-item__icon" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+            <span class="nav-item__label">Settings</span>
+            <div class="nav-indicator"></div>
+        </button>
+    </nav>
+
+    <!-- Scripts -->
+    <script src="js/theme.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/memory.js"></script>
+    <script src="js/wake.js"></script>
+    <script src="js/app.js"></script>
+
+</body>
+
+</html>
