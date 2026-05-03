@@ -3,7 +3,7 @@
 
 [[redirects]]
   from = "/api/v1/*"
-  to = "https://tours-females-hollow-sufficiently.trycloudflare.com/api/v1/:splat"
+  to = "https://aria-xot7.onrender.com/api/v1/:splat"
   status = 200
   force = true
   
