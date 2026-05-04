@@ -95,6 +95,7 @@ async def handle_conversation(
         )
 
         # 6. Generate Voice Bytes
+        print(f"DEBUG: Using voice preference: {voice_pref}")
         audio_response_bytes = await ai_engine.synthesize_voice(text=ai_reply_text, voice_pref=voice_pref)
 
         import base64
