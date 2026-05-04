@@ -60,7 +60,6 @@ const AuthService = (() => {
     async function _fetchAPI(endpoint, method = 'GET', body = null) {
         const headers = { 
             'Content-Type': 'application/json',
-            'Bypass-Tunnel-Reminder': 'true'
         };
         const sessionToken = getSession();
         
@@ -73,14 +72,32 @@ const AuthService = (() => {
             config.body = JSON.stringify(body);
         }
 
+        // Add timeout for sleeping Render instances
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 15000);
+        config.signal = controller.signal;
+
         try {
             const res = await fetch(`${API_URL}${endpoint}`, config);
-            const data = await res.json();
+            clearTimeout(timeoutId);
+
+            const text = await res.text();
+            let data;
+            try {
+                data = text ? JSON.parse(text) : {};
+            } catch (e) {
+                return { success: false, error: 'Server returned invalid response. It may be starting up — try again in a moment.' };
+            }
+
             if (!res.ok) {
                 throw new Error(data.detail || data.message || 'API Error');
             }
             return { success: true, data };
         } catch (err) {
+            clearTimeout(timeoutId);
+            if (err.name === 'AbortError') {
+                return { success: false, error: 'Server is waking up (free Render tier sleeps after inactivity). Please try again in 30 seconds.' };
+            }
             return { success: false, error: err.message || 'Network error' };
         }
     }

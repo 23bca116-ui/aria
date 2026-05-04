@@ -186,11 +186,12 @@
 
 
     // ─────────────── Backend API Helper ───────────────
+    let _backendAvailable = null; // null = unknown, true/false = cached
+
     async function _fetchAPI(endpoint, method = 'GET', body = null, isFormData = false) {
         const token = localStorage.getItem('aria_session') || 'guest_session';
         const headers = {
             'Authorization': `Bearer ${token}`,
-            'Bypass-Tunnel-Reminder': 'true'
         };
 
         if (!isFormData) {
@@ -202,10 +203,35 @@
             config.body = isFormData ? body : JSON.stringify(body);
         }
 
-        const res = await fetch(`/api/v1${endpoint}`, config);
-        const data = await res.json();
-        if (!res.ok) throw new Error(data.detail || 'API Error');
-        return data;
+        // Add timeout to prevent hanging on sleeping Render instances
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 15000);
+        config.signal = controller.signal;
+
+        try {
+            const res = await fetch(`/api/v1${endpoint}`, config);
+            clearTimeout(timeoutId);
+
+            // Handle empty responses safely
+            const text = await res.text();
+            let data;
+            try {
+                data = text ? JSON.parse(text) : {};
+            } catch (e) {
+                throw new Error('Server returned invalid response');
+            }
+
+            if (!res.ok) throw new Error(data.detail || 'API Error');
+            _backendAvailable = true;
+            return data;
+        } catch (err) {
+            clearTimeout(timeoutId);
+            if (err.name === 'AbortError') {
+                _backendAvailable = false;
+                throw new Error('Server is waking up, please try again in a moment');
+            }
+            throw err;
+        }
     }
 
     // ─────────────── Audio Player ───────────────
@@ -246,6 +272,27 @@
             console.error("Base64 decode error", e);
             if (onEnd) onEnd();
         }
+    }
+
+    // ─────────────── Local TTS (Web Speech API Fallback) ───────────────
+    function speakLocal(text) {
+        if (!('speechSynthesis' in window) || !text) {
+            OrbController.setState('idle');
+            return;
+        }
+        OrbController.setState('speaking');
+        window.speechSynthesis.cancel();
+        const utter = new SpeechSynthesisUtterance(text);
+        utter.rate = 1.0;
+        utter.pitch = 1.1;
+        // Try to pick a nice female voice
+        const voices = window.speechSynthesis.getVoices();
+        const preferred = voices.find(v => v.name.includes('Samantha') || v.name.includes('Google UK English Female') || v.name.includes('Zira') || (v.lang === 'en-US' && v.name.toLowerCase().includes('female')));
+        if (preferred) utter.voice = preferred;
+        else if (voices.length > 0) utter.voice = voices.find(v => v.lang.startsWith('en')) || voices[0];
+        utter.onend = () => OrbController.setState('idle');
+        utter.onerror = () => OrbController.setState('idle');
+        window.speechSynthesis.speak(utter);
     }
 
 
@@ -381,9 +428,13 @@
                     this.setState('idle');
                 }
             } catch (error) {
-                console.error("Voice API Error:", error);
-                appendMessage("Sorry, I couldn't process that. " + error.message, 'aria-msg');
-                this.setState('idle');
+                console.warn("Voice backend unavailable, using local brain:", error.message);
+                // Fallback: inform user and use local brain
+                const fallbackMsg = "I heard you! (Backend is waking up, using local mode)";
+                appendMessage(fallbackMsg, 'aria-msg');
+                const reply = AriaBrain.getResponse("hello");
+                appendMessage(reply, 'aria-msg');
+                speakLocal(reply);
             }
         },
 
@@ -491,7 +542,6 @@
                 
                 if (response.reply) {
                     appendMessage(response.reply, 'aria-msg');
-                    // Store memory
                     AriaBrain.storeMemory(text);
                 }
                 
@@ -501,12 +551,16 @@
                         OrbController.setState('idle');
                     });
                 } else {
-                    OrbController.setState('idle');
+                    // Use browser TTS if backend didn't return audio
+                    if (response.reply) speakLocal(response.reply);
+                    else OrbController.setState('idle');
                 }
             } catch (error) {
-                console.error("Text API Error:", error);
-                appendMessage("Sorry, I couldn't process that.", 'aria-msg');
-                OrbController.setState('idle');
+                console.warn("Backend unavailable, using local brain:", error.message);
+                // Fallback to local AriaBrain
+                const reply = AriaBrain.getResponse(text);
+                appendMessage(reply, 'aria-msg');
+                speakLocal(reply);
             }
         };
 

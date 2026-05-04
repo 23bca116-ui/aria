@@ -1,4 +1,5 @@
 from pydantic_settings import BaseSettings, SettingsConfigDict
+import os
 
 class Settings(BaseSettings):
     PROJECT_NAME: str = "ARIA Backend"
@@ -12,6 +13,12 @@ class Settings(BaseSettings):
     GROQ_API_KEY: str = ""
     ELEVENLABS_API_KEY: str = ""
 
-    model_config = SettingsConfigDict(env_file=".env", case_sensitive=True)
+    model_config = SettingsConfigDict(
+        env_file=(".env", os.path.join(os.path.dirname(__file__), "..", ".env")),
+        env_file_encoding="utf-8",
+        case_sensitive=True,
+        extra="ignore"
+    )
 
 settings = Settings()
+

@@ -6,7 +6,8 @@ from typing import Optional
 def get_supabase() -> Client:
     """Provides a Supabase client configured with service/anon keys."""
     if not settings.SUPABASE_URL or not settings.SUPABASE_KEY:
-        raise HTTPException(status_code=500, detail="Supabase configuration is missing.")
+        print("WARNING: Supabase configuration is missing. Check SUPABASE_URL and SUPABASE_KEY env vars.")
+        raise HTTPException(status_code=503, detail="Supabase configuration is missing. Set SUPABASE_URL and SUPABASE_KEY environment variables on Render.")
     return create_client(settings.SUPABASE_URL, settings.SUPABASE_KEY)
 
 from typing import Optional
