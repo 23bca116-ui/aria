@@ -209,7 +209,7 @@
         config.signal = controller.signal;
 
         try {
-            const res = await fetch(`/api/v1${endpoint}`, config);
+            const res = await fetch(`https://aria-xot7.onrender.com/api/v1${endpoint}`, config);
             clearTimeout(timeoutId);
 
             // Handle empty responses safely

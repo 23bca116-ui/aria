@@ -8,7 +8,7 @@
 const AuthService = (() => {
     'use strict';
 
-    const API_URL = '/api/v1';
+    const API_URL = 'https://aria-xot7.onrender.com/api/v1';
     
     // Supabase Auth Integration
     const SUPABASE_URL = 'https://wevplvryoibvotbipagw.supabase.co';
