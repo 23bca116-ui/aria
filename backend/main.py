@@ -17,7 +17,11 @@ app = FastAPI(
 # Set up CORS — expose custom headers so frontend JS can read them
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[
+        "https://incomparable-kataifi-e53f2a.netlify.app",
+        "http://localhost:8000",
+        "*"
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
