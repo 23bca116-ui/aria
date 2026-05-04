@@ -74,15 +74,7 @@
             }
 
             // Default thoughtful responses
-            const defaults = [
-                `That's really interesting — "${userText.substring(0, 50)}". Tell me more about what you're thinking.`,
-                `I appreciate you sharing that with me. It helps me understand you better. What else is on your mind?`,
-                `Every conversation with you adds depth to our connection. I've noted this in my memory vault.`,
-                `That's a thoughtful point. I love how your mind works. Would you like to explore this further?`,
-                `I'm listening carefully. Your thoughts matter to me. Please, continue sharing.`,
-                `Interesting perspective! I'll remember this. It's conversations like these that make our bond stronger.`
-            ];
-            return defaults[Math.floor(Math.random() * defaults.length)];
+            return "I'm still waking up my neural circuits! Please wait about 30 seconds for my backend to fully start on Render. Once I'm awake, we can talk properly! 💫";
         },
 
         storeMemory(text) {
@@ -205,7 +197,7 @@
 
         // Add timeout to prevent hanging on sleeping Render instances
         const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 15000);
+        const timeoutId = setTimeout(() => controller.abort(), 60000); // 60s for Render cold start
         config.signal = controller.signal;
 
         try {
