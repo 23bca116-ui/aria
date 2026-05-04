@@ -9,7 +9,7 @@ ARIA utilizes a hybrid intelligence stack for low-latency, human-like interactio
 1.  **The Brain:** Llama 3.3 (70B) via **Groq**, optimized for conversational speed and brevity.
 2.  **The Voice:** 
     *   **STT:** Whisper-large-v3 via **Groq** (Extreme low latency).
-    *   **TTS:** **ElevenLabs** Multilingual v2 (Empathetic, high-fidelity synthesis).
+    *   **TTS:** **Microsoft Edge Voice** (Neural high-fidelity synthesis).
 3.  **The Memory (Dual-Layer):**
     *   **Structured (SQL):** Uses **Supabase** for explicit facts (preferences, names, pinned notes). This layer is queryable and used for direct context injection.
     *   **Semantic (Vector):** Uses **ChromaDB** for abstract impressions and thematic continuity. This layer allows ARIA to "feel" the vibe of past conversations without needing exact keyword matches.
@@ -31,7 +31,6 @@ ARIA utilizes a hybrid intelligence stack for low-latency, human-like interactio
 Create a `.env` file in the `backend/` directory with:
 ```env
 GROQ_API_KEY=your_groq_key
-ELEVENLABS_API_KEY=your_elevenlabs_key
 SUPABASE_URL=your_project_url
 SUPABASE_SERVICE_KEY=your_service_role_key
 ```
@@ -60,6 +59,6 @@ Open `http://localhost:3000` in your browser.
 
 ## 🔮 Future Production Roadmap
 1.  **Persistent Vector Cloud:** Migrate ChromaDB to a hosted vector instance (e.g., Pinecone or Chroma Cloud).
-2.  **Streaming Audio:** Implement WebSocket streaming for the ElevenLabs TTS to reduce first-byte-latency.
+2.  **Streaming Audio:** Implement WebSocket streaming for the Edge-TTS to reduce first-byte-latency.
 3.  **Biometric Lock:** Implement WebAuthn (FaceID/TouchID) for the Privacy settings section.
 4.  **Multi-Modal:** Add vision support using Llama 3.2 Vision to allow ARIA to "see" your environment.

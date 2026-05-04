@@ -11,7 +11,6 @@ class Settings(BaseSettings):
     
     # AI Engine Settings
     GROQ_API_KEY: str = ""
-    ELEVENLABS_API_KEY: str = ""
 
     model_config = SettingsConfigDict(
         env_file=(".env", os.path.join(os.path.dirname(__file__), "..", ".env")),
